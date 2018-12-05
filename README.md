@@ -1,29 +1,25 @@
-# python-http-server
-A simple Python HTTP Server that serves static content
-There are several ways that this small application can be run:
+# Docker_Python
 
-### Running as a Systemd Service
-- In the [Service File](python-systemd-http-server), change the `User` property to the user that is going to be running the server, the default is jenkins:
-	```systemd
-	[Service]
-	User=jenkins
-	```
-- Install the server
-	```bash
-	sudo make install
-	```
-- Start the Server with `systemctl`
-	```bash
-	sudo systemctl start python-systemd-http-server
-	```
-- The server can be accessed on the default port of `9000`:
-	```bash
-	http://localhost:9000
-	```
+Here we will build a docker image for the above python server, containerize it and then upload it on to dockerhub.
 
-### Running in a Docker container
-- Build the docker image and run the container:
-```shell
-make docker_up
-```
+## Login to Dockerhub
 
+Run ```docker login``` and enter your credentials.
+
+## Build the image
+
+Run ```docker build -t python-http-server .``` in the repositories directory. This will build the image for the python server.
+
+## Containerize the image
+
+Run ```docker run -d -p 8080:8080 --name ilyas python-http-server``` to containrize the image.
+
+## Upload the container to Dockerhub
+
+Run the following commands to upload on to dockerhub:
+
+```docker run -d -p 5000:5000 registry```
+
+```docker tag python-http-server docker.io/ilyashusain/python-server```
+
+```docker push ilyashusain/python-server```
